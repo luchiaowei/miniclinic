@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>掛號記錄 - MiniClinic</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; max-width: 960px; margin: 40px auto; padding: 0 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #E2E8F0; }
+        th { background: #0F2443; color: white; }
+        .status-BOOKED { color: #F59E0B; font-weight: bold; }
+        .status-COMPLETED { color: #10B981; font-weight: bold; }
+        .status-CANCELLED { color: #94A3B8; }
+    </style>
+</head>
+<body>
+    <h1>掛號記錄</h1>
+
+    <p th:if="${appointments.isEmpty()}">目前沒有掛號紀錄。</p>
+
+    <table th:unless="${appointments.isEmpty()}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>日期</th>
+                <th>時段</th>
+                <th>醫師</th>
+                <th>病患</th>
+                <th>病歷號</th>
+                <th>狀態</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="appt : ${appointments}">
+                <td th:text="${appt.apptId}">1</td>
+                <td th:text="${appt.apptDate}">2026-05-01</td>
+                <td th:text="${appt.timeSlot}">AM</td>
+                <td th:text="${appt.doctor.name}">醫師 A</td>
+                <td th:text="${appt.patient.name}">病患 甲</td>
+                <td th:text="${appt.patient.chartNo}">TEST0001</td>
+                <td>
+                    <span th:text="${appt.status}" th:class="${'status-' + appt.status}">BOOKED</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: center; margin-top: 20px;">
+        <a th:href="@{/}">← 回首頁</a>
+    </p>
+</body>
+</html>

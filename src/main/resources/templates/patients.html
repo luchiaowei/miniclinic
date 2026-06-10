@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>病歷資料 - MiniClinic</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; max-width: 960px; margin: 40px auto; padding: 0 16px; background: #f7fafc; color: #1f2937; }
+        h1 { margin-bottom: 16px; }
+        table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,.06); }
+        th, td { padding: 12px 14px; border-bottom: 1px solid #e5e7eb; text-align: left; }
+        th { background: #2563eb; color: #fff; }
+        tr:hover { background: #f8fafc; }
+        .empty { padding: 20px; background: #fff; border: 1px dashed #cbd5e1; }
+        .back { display: inline-block; margin-bottom: 16px; color: #2563eb; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <a class="back" th:href="@{/}">← 回首頁</a>
+    <h1>病歷資料</h1>
+
+    <div th:if="${#lists.isEmpty(patients)}" class="empty">
+        目前沒有病患資料。
+    </div>
+
+    <table th:if="${!#lists.isEmpty(patients)}">
+        <thead>
+            <tr>
+                <th>病歷號</th>
+                <th>姓名</th>
+                <th>性別</th>
+                <th>生日</th>
+                <th>電話</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.chartNo}">TEST0001</td>
+                <td th:text="${patient.name}">測試病患甲</td>
+                <td th:text="${patient.gender}">男</td>
+                <td th:text="${patient.birthDate}">1985-03-15</td>
+                <td th:text="${patient.phone}">0912-345-678</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
