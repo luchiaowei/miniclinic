@@ -20,7 +20,3 @@ INSERT INTO appointment (appt_id, chart_no, doctor_id, appt_date, time_slot, sta
     (2, 'TEST00002', 'D002', '2026-05-01', 'AM', 'BOOKED'),
     (3, 'TEST00003', 'D003', '2026-05-02', 'PM', 'BOOKED')
 ON CONFLICT (appt_id) DO NOTHING;
-
--- 重設 appointment 序列，讓下一筆新增的掛號 ID 從 max+1 開始，避免主鍵衝突
-SELECT setval(pg_get_serial_sequence('appointment', 'appt_id'),
-              COALESCE((SELECT MAX(appt_id) FROM appointment), 0) + 1, false);
